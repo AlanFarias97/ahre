@@ -1,10 +1,13 @@
 package com.ahre.service.implementations;
 
 import com.ahre.model.Producto;
+import com.ahre.model.Proveedor;
 import com.ahre.repositoy.ProductoRepository;
 import com.ahre.service.interfaces.IProductoServices;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,9 +19,18 @@ public class ProductoServicesImpl implements IProductoServices {
         this.productoRepository = productoRepository;
     }
 
+    ModelMapper mapper = new ModelMapper();
+
     @Override
-    public List<Producto> getProductos() {
-        return productoRepository.findActives();
+    public List<Producto.ProductoListDTO> getProductos() {
+        var productos = productoRepository.findActives();
+        List<Producto.ProductoListDTO> productoListDTO =  new ArrayList<>();
+        for (var unit : productos) {
+            var prod = mapper.map(unit, Producto.ProductoListDTO.class);
+            prod.setProveedorId(unit.getProveedor().getId());
+            productoListDTO.add(prod);
+        }
+        return productoListDTO;
     }
 
     @Override
@@ -34,7 +46,16 @@ public class ProductoServicesImpl implements IProductoServices {
     }
 
     @Override
-    public List<Producto> findProductsByLowStock(int nivel) {
-        return null;
+    public List<Producto.ProductoProveedorDTO> findProductsByLowStock(int nivel) {
+        var productos = productoRepository.findProductsByLowStock(nivel);
+
+        List<Producto.ProductoProveedorDTO> productoDTO =  new ArrayList<>();
+        for (var unit : productos) {
+            var prod = mapper.map(unit, Producto.ProductoProveedorDTO.class);
+            prod.setProveedor(mapper.map(unit.getProveedor(), Proveedor.ProveedorDTO.class));
+            productoDTO.add(prod);
+        }
+        return productoDTO;
+
     }
 }

@@ -18,7 +18,7 @@ public class ProductoController {
     }
 
     @GetMapping("producto/traer")
-    public List<Producto> getClientes() {
+    public List<Producto.ProductoListDTO> getClientes() {
         return productoServices.getProductos();
     }
 
@@ -37,5 +37,10 @@ public class ProductoController {
     @DeleteMapping("producto/borrar/{id}")
     public void deleteCliente(@PathVariable Long id) {
         productoServices.deleteProducto(id);
+    }
+
+    @GetMapping("producto/lowstock/{nivel}")
+    public List<Producto.ProductoProveedorDTO> getClientes(@PathVariable int nivel) {
+        return productoServices.findProductsByLowStock(nivel);
     }
 }

@@ -20,5 +20,6 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
     void delete(Producto producto);
 
-    List<Producto> findAll();
+    @Query(value = "select p from Producto p where p.stock <= ?1")
+    List<Producto> findProductsByLowStock(int nivel);
 }

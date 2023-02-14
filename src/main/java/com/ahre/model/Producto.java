@@ -25,7 +25,7 @@ public class Producto implements Serializable {
     private Long id;
 
     @JsonBackReference
-    @ManyToOne(fetch=FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idProv", referencedColumnName = "idProveedor"
             , foreignKey = @ForeignKey(name = "fk_Producto_Proveedor"))
     private Proveedor proveedor;
@@ -42,4 +42,32 @@ public class Producto implements Serializable {
     @JoinColumn(name = "idVenta", referencedColumnName = "idVenta")
     private Venta venta;
 
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ProductoListDTO {
+        private Long id;
+        private Long proveedorId;
+        private String nombre;
+        private String descripcion;
+        private BigDecimal precio;
+        private int stock;
+        private Boolean active;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ProductoProveedorDTO {
+        private Long id;
+        private Proveedor.ProveedorDTO proveedor;
+        private String nombre;
+        private String descripcion;
+        private BigDecimal precio;
+        private int stock;
+        private Boolean active;
+
+    }
 }

@@ -44,4 +44,17 @@ public class Proveedor implements Serializable {
 
     @Column(name = "activo", nullable = false)
     private Boolean active = true;
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ProveedorDTO{
+        private Long id;
+        private String nombre;
+        private String apellido;
+        private String telefono;
+        private String direccion;
+        private int cuit;
+        private Boolean active;
+    }
 }
