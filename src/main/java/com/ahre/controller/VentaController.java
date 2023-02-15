@@ -1,9 +1,12 @@
 package com.ahre.controller;
 
+import com.ahre.model.Producto;
 import com.ahre.model.Venta;
 import com.ahre.service.interfaces.IVentaServices;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -36,5 +39,17 @@ public class VentaController {
     @DeleteMapping("venta/borrar/{id}")
     public void deleteCliente(@PathVariable Long id) {
         ventaServices.deleteVenta(id);
+    }
+
+    @GetMapping("venta/proveedor/{idProveedor}")
+    public List<Venta.VentaDto> getVentasByProveedor(@PathVariable Long idProveedor) {
+        return ventaServices.getVentasByProveedor(idProveedor);
+    }
+
+    @GetMapping("venta/{fecha}")
+    public List<Venta.VentaDto> getVentasByFecha(@PathVariable LocalDateTime fecha) {
+        LocalDateTime start = LocalDateTime.of(LocalDate.from(searcherDto.getStartDate()), LocalTime.of(0, 0, 0));
+        LocalDateTime end = LocalDateTime.of(LocalDate.from(searcherDto.getEndDate()), LocalTime.of(23, 59, 59));
+        return ventaServices.getVentasByFecha(fecha);
     }
 }

@@ -51,6 +51,16 @@ public class VentaServicesImpl implements IVentaServices {
     }
 
     @Override
+    public List<Venta.VentaDto> getVentasByFecha(LocalDateTime desde, LocalDateTime hasta) {
+        List<Venta>ventas= ventaRepository.findByFecha(desde, hasta);
+        List<Venta.VentaDto> ventasDto =  new ArrayList<>();
+        for(var unit:ventas) {
+            ventasDto.add(mapper.map(unit, Venta.VentaDto.class));
+        }
+        return ventasDto;
+    }
+
+    @Override
     public void saveVenta(Venta venta) {
         ventaRepository.save(venta);
     }
@@ -95,12 +105,13 @@ public class VentaServicesImpl implements IVentaServices {
     }
 
     @Override
-    public List<Venta> findVentasByDay(LocalDateTime dia) {
-        return null;
+    public List<Venta.VentaDto> getVentasByProveedor(Long id) {
+        List<Venta>ventas= ventaRepository.findByProveedorId(id);
+        List<Venta.VentaDto> ventasDto =  new ArrayList<>();
+        for(var unit:ventas) {
+            ventasDto.add(mapper.map(unit, Venta.VentaDto.class));
+        }
+        return ventasDto;
     }
 
-    @Override
-    public List<Venta> findVentasByProveeedor(Proveedor proveedor) {
-        return null;
-    }
 }
