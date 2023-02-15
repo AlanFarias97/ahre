@@ -19,7 +19,7 @@ public class ProveedorController {
     }
 
     @GetMapping("proveedor/traer")
-    public List<Proveedor> getProveedores() {
+    public List<Proveedor.ProveedorVentasDTO> getProveedores() {
         return proveedorServices.getProveedor();
     }
 

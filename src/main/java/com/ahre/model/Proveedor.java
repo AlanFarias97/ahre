@@ -57,4 +57,18 @@ public class Proveedor implements Serializable {
         private int cuit;
         private Boolean active;
     }
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ProveedorVentasDTO{
+        private Long id;
+        private String nombre;
+        private String apellido;
+        private String telefono;
+        private String direccion;
+        private int cuit;
+        private List<Producto.ProductoDTO> productos  = new ArrayList<>();
+        private List<Venta.VentaProveedorDto> ventas  = new ArrayList<>();
+        private Boolean active;
+    }
 }

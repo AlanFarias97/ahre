@@ -1,12 +1,15 @@
 package com.ahre.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -38,9 +41,8 @@ public class Producto implements Serializable {
     @Column(name = "activo", nullable = false)
     private Boolean active = true;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-    @JoinColumn(name = "idVenta", referencedColumnName = "idVenta")
-    private Venta venta;
+    @ManyToMany(mappedBy = "productos")
+    private Set<Venta> venta =  new HashSet<>();
 
     @Getter
     @Setter
@@ -69,5 +71,29 @@ public class Producto implements Serializable {
         private int stock;
         private Boolean active;
 
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ProductoVentaDTO {
+        private Long id;
+        private String nombre;
+        private String descripcion;
+        private BigDecimal precio;
+        private int cantidad;
+    }
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class ProductoDTO {
+        private Long id;
+        private String nombre;
+        private String descripcion;
+        private BigDecimal precio;
+        private int stock;
     }
 }

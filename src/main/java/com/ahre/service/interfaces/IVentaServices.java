@@ -8,9 +8,11 @@ import java.util.List;
 
 public interface IVentaServices {
 
-    public List<Venta> getVentas();
+    public List<Venta.VentaDto> getVentas();
 
     public void saveVenta(Venta venta);
+
+    public String crearVenta(Venta.VentaRequest venta);
 
     public void deleteVenta(Long id);
 

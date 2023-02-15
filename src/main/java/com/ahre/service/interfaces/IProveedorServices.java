@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IProveedorServices {
 
-    public List<Proveedor> getProveedor();
+    public List<Proveedor.ProveedorVentasDTO> getProveedor();
 
     public void saveProveedor(Proveedor proveedor);
 

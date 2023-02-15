@@ -1,6 +1,5 @@
 package com.ahre.controller;
 
-import com.ahre.model.Producto;
 import com.ahre.model.Venta;
 import com.ahre.service.interfaces.IVentaServices;
 import org.springframework.web.bind.annotation.*;
@@ -18,17 +17,17 @@ public class VentaController {
     }
 
     @GetMapping("venta/traer")
-    public List<Venta> getClientes() {
+    public List<Venta.VentaDto> getVentas() {
         return ventaServices.getVentas();
     }
 
     @PostMapping("venta/crear")
-    public void createCliente(@RequestBody Venta venta) {
-        ventaServices.saveVenta(venta);
+    public String createVenta(@RequestBody Venta.VentaRequest venta) {
+        return ventaServices.crearVenta(venta);
     }
 
     @PutMapping("venta/editar/{id}")
-    public Venta editCliente (@PathVariable("id") Long id, @RequestBody Venta venta){
+    public Venta editVenta (@PathVariable("id") Long id, @RequestBody Venta venta){
         venta.setId(id);
         ventaServices.saveVenta(venta);
         return venta;
